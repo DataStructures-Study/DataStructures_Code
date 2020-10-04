@@ -1,0 +1,567 @@
+# 04 스택 연습문제
+
+
+
+1.
+
+(4) top=top+1
+
+
+
+2.
+
+넣었던 순서의 반대로 출력된다.
+
+(2) E, D, C, B, A
+
+
+
+3.
+
+마지막에 입력된 것 부터 50,40,30 순으로 삭제된다.
+
+10,20
+
+
+
+4.
+
+top[0] ~ top[3] 즉 4개이다.
+
+
+
+5.
+
+공백상태: top=-1
+
+포화상태: MAX_STACK_SIZE-1
+
+
+
+6.
+
+삭제나 삽입 시 맨 위에 데이터를 삽입하거나 삭제 하기 때문에
+
+시간 복잡도는 늘 O(1) 이다.
+
+
+
+7.
+
+후위 표기 일때는 피연산자를 스택에 쌓다가 연산자가 나오면 스택에 있는걸 두개 pop해서 연산한다.
+
+피연산자 A,B,E를 스택에 push하다가 연산자 +가 나와서 스택의 제일 위에 있는 E와 B가 pop되므로 B+E 가 제일 최초로 수행된다.
+
+(A((B E +)D*)-)
+
+중위 표기로 바꾸면 ->  (A-((B+E)*D))
+
+
+
+8.
+
+|      |      |      |      |      | 5    |      |
+| ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+|      |      | 3    |      | 4    | 4    | 4    |
+|      | 2    | 2    | 2    | 2    | 2    | 2    |
+| 1    | 1    | 1    | 1    | 1    | 1    | 1    |
+
+
+
+9.
+
+|  A   |  B   |
+| :--: | :--: |
+|  c   |      |
+|  b   |      |
+|  a   |      |
+
+
+
+
+
+10.
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_STACK_SIZE 100
+
+typedef int element;
+typedef struct {
+   element data[MAX_STACK_SIZE];
+   int top;
+}StackType;
+
+//스택 초기화 함수
+void init_stack(StackType* s)
+{
+   s->top = -1;
+}
+//공백 상태 검출 함수
+int is_empty(StackType *s)
+{
+   return(s->top == -1);
+}
+//포화 상태 검출 함수
+int is_full(StackType *s)
+{
+   return (s->top == (MAX_STACK_SIZE - 1));
+}
+//삽입 함수
+void push(StackType *s, element item)
+{
+   if (is_full(s)) {
+      fprintf(stderr, "스택 포화 에러\n");//sterr:표준에러출력장치
+      return;
+   }
+   else s->data[++(s->top)] = item;
+}
+//삭제 함수
+element pop(StackType *s)
+{
+   if (is_empty(s)) {
+      fprintf(stderr, "스택 공백 에러\n");
+         exit(1);
+   }
+   else return s->data[(s->top)--];
+}
+
+int main(void)
+{
+   StackType s; //스택 정적 생성
+
+   init_stack(&s);
+   int size, num;
+
+   printf("정수 배열의 크기: ");
+   scanf_s("%d", &size);
+
+   printf("정수를 입력하시오: ");
+   for (int i = 0; i < size; i++)
+   {
+      scanf_s("%d", &num);
+      push(&s, num);
+   }
+
+   printf("반전된 정수 배열: ");
+   for (int i = 0; i < size; i++)
+   {
+      printf("%d ", pop(&s));
+   }
+   return 0;
+}
+```
+
+
+
+
+
+11.
+
+
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define MAX_STACK_SIZE 100
+
+typedef char element;
+typedef struct {
+	element data[MAX_STACK_SIZE];
+	int top;
+} StackType;
+
+// 스택 초기화 함수
+void init_stack(StackType* s)
+{
+	s->top = -1;
+}
+
+// 공백 검사 함수
+int is_empty(StackType* s)
+{
+	return (s->top == -1);
+}
+// 포화 검사 함수
+int is_full(StackType* s)
+{
+	return (s->top == (MAX_STACK_SIZE - 1));
+}
+// 삽입함수
+void push(StackType* s, element item)
+{
+	if (is_full(s)) {
+		fprintf(stderr, "스택 포화 에러\n");
+		return;
+	}
+	else s->data[++(s->top)] = item;
+}
+// 삭제함수
+element pop(StackType* s)
+{
+	if (is_empty(s)) {
+		fprintf(stderr, "스택 공백 에러\n");
+		exit(1);
+	}
+	else return s->data[(s->top)--];
+}
+
+int main(void)
+{
+	int i;
+	int count = 0, n = 0;
+
+	StackType s;
+	init_stack(&s);
+
+	char ch[MAX_STACK_SIZE];
+	printf("수식 : ");
+	scanf_s("%s", ch, sizeof(ch));
+	
+	n = strlen(ch);
+
+	printf("괄호 수: ");
+	for (i = 0; i < n; i++) {
+		if (ch[i] == '(') {
+			count++;
+			push(&s, count);
+			printf("%d ", count);
+		}
+		if (ch[i] == ')') {
+			printf("%d ", pop(&s));
+		}
+	}
+	return 0;
+}
+```
+
+
+
+
+
+12.
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define MAX_STACK_SIZE 100
+
+typedef char element;
+typedef struct {
+   element data[MAX_STACK_SIZE];
+   int top;
+} StackType;
+
+// 스택 초기화 함수
+void init_stack(StackType* s)
+{
+   s->top = -1;
+}
+
+// 공백 검사 함수
+int is_empty(StackType* s)
+{
+   return (s->top == -1);
+}
+// 포화 검사 함수
+int is_full(StackType* s)
+{
+   return (s->top == (MAX_STACK_SIZE - 1));
+}
+// 삽입함수
+void push(StackType* s, element item)
+{
+   if (is_full(s)) {
+      fprintf(stderr, "스택 포화 에러\n");
+      return;
+   }
+   else s->data[++(s->top)] = item;
+}
+// 삭제함수
+element pop(StackType* s)
+{
+   if (is_empty(s)) {
+      fprintf(stderr, "스택 공백 에러\n");
+      exit(1);
+   }
+   else return s->data[(s->top)--];
+}
+
+element peek(StackType* s)
+{
+   if (is_empty(s))
+   {
+      fprintf(stderr, "스택 공백 에러\n");
+      exit(1);
+   }
+   else return s->data[s->top];
+}
+
+int main(void)
+{
+   int i, j;
+   int n = 0;
+   int count = 0;
+   StackType s;
+   init_stack(&s);
+
+   char string[MAX_STACK_SIZE];
+   printf("문자열을 입력하시오 : ");
+   scanf_s("%s", string, sizeof(string));
+   n = strlen(string); //문자열의 길이
+
+   for (i = 0; i < n; i++)
+   {
+      push(&s, string[i]);
+   }
+
+   for (i = 97; i <= 122; i++)//소문자
+   {
+      for (j = 0; j < n; j++)
+      {
+         if (65 <= string[j] && string[j] <= 90) //대문자
+            string[j] += 32; //대문자->소문자 바꾸기
+         if (i == string[j]) //같을시에 count값 증가
+            count++;
+      }
+      
+      if (count == 0)
+         continue;
+      
+      printf("%d%c", count, i);
+      count = 0;
+   }
+   
+
+   return 0;
+
+}
+```
+
+
+
+
+
+13.
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define MAX_STACK_SIZE 100
+
+typedef char element;
+typedef struct {
+   element data[MAX_STACK_SIZE];
+   int top;
+} StackType;
+
+// 스택 초기화 함수
+void init_stack(StackType* s)
+{
+   s->top = -1;
+}
+
+// 공백 검사 함수
+int is_empty(StackType* s)
+{
+   return (s->top == -1);
+}
+// 포화 검사 함수
+int is_full(StackType* s)
+{
+   return (s->top == (MAX_STACK_SIZE - 1));
+}
+// 삽입함수
+void push(StackType* s, element item)
+{
+   if (is_full(s)) {
+      fprintf(stderr, "스택 포화 에러\n");
+      return;
+   }
+   else s->data[++(s->top)] = item;
+}
+// 삭제함수
+element pop(StackType* s)
+{
+   if (is_empty(s)) {
+      fprintf(stderr, "스택 공백 에러\n");
+      exit(1);
+   }
+   else return s->data[(s->top)--];
+}
+
+element peek(StackType* s)
+{
+   if (is_empty(s))
+   {
+      fprintf(stderr, "스택 공백 에러\n");
+      exit(1);
+   }
+   else return s->data[s->top];
+}
+
+int main(void)
+{
+   int i = 0;
+   int n;
+
+   StackType s1, s2;
+   init_stack(&s1);
+   init_stack(&s2);
+
+
+   printf("정수를 입력하시오 : ");
+   char string[MAX_STACK_SIZE];
+   scanf_s("%s", string, sizeof(string));
+   n = strlen(string); //문자열의 길이 n
+   //ex)122333
+   
+
+      for (i = 0; i < n; i++) {
+         if (string[i] != string[i+1]) //이전 숫자와 다음 숫자가 같지 않다면 push
+            push(&s1, string[i]-'0'); //숫자를 문자로 받아놔서 정수로 취급하기 위해 아스키코드 '0'만큼 빼기
+      } //s1에 저장
+   
+      while (!is_empty(&s1)) {
+         push(&s2, pop(&s1)); //s2에 저장
+      }
+
+      printf("출력 :");
+      while (!is_empty(&s2)) {  
+         printf("%d", pop(&s2)); //원래 순서대로 출력
+      }
+
+   
+   return 0;
+}
+
+```
+
+
+
+
+
+14.
+
+```c
+int size(StackType *s) {
+   return s->top + 1;
+}
+```
+
+(top의 값이 배열의 인덱스가 실제 개수의 -1이므로 1을 더함)
+
+
+
+16.
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define MAX_STACK_SIZE 100
+
+typedef char element;
+typedef struct {
+   element data[MAX_STACK_SIZE];
+   int top;
+} StackType;
+
+// 스택 초기화 함수
+void init_stack(StackType* s)
+{
+   s->top = -1;
+}
+
+// 공백 검사 함수
+int is_empty(StackType* s)
+{
+   return (s->top == -1);
+}
+// 포화 검사 함수
+int is_full(StackType* s)
+{
+   return (s->top == (MAX_STACK_SIZE - 1));
+}
+// 삽입함수
+void push(StackType* s, element item)
+{
+   if (is_full(s)) {
+      fprintf(stderr, "스택 포화 에러\n");
+      return;
+   }
+   else s->data[++(s->top)] = item;
+}
+// 삭제함수
+element pop(StackType* s)
+{
+   if (is_empty(s)) {
+      fprintf(stderr, "스택 공백 에러\n");
+      exit(1);
+   }
+   else return s->data[(s->top)--];
+}
+
+element peek(StackType* s)
+{
+   if (is_empty(s))
+   {
+      fprintf(stderr, "스택 공백 에러\n");
+      exit(1);
+   }
+   else return s->data[s->top];
+}
+
+int main(void)
+{
+   int i = 0;
+   int n;
+   char a, b;
+
+   StackType s;
+   init_stack(&s);
+   
+
+
+   printf("문자열을 입력하시오 : ");
+   char string[MAX_STACK_SIZE];
+   scanf_s("%s", string, sizeof(string));
+   n = strlen(string); //문자열의 길이 n
+   
+   for (i = 0; i < n; i++) {
+      a = string[i];
+
+      if (a == ',' || a == ' ') //구두점이나 스페이스 무시
+         continue;
+      a = tolower(a); //대문자면 소문자로 변경
+      push(&s, a); //스택에 삽입
+      
+   }
+
+      for (i = 0; i < n; i++) {
+      a = string[i];
+
+      if (a == ',' || a == ' ') //구두점이나 스페이스 무시
+         continue;
+      a = tolower(a); //대문자면 소문자로 변경
+      b = pop(&s);
+      
+
+   }
+
+   
+
+   if (a == b) printf("회문입니다");
+   else printf("회문이 아닙니다. ");
+   
+      
+   
+   return 0;
+}
+```
+
