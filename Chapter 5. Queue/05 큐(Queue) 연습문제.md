@@ -276,15 +276,15 @@ int main(void)
 	
 
 	enqueue(&queue, 0);
-	enqueue(&queue, 1);
+	enqueue(&queue, 1); //0과 1을 넣음
 
-	printf("%d %d ", queue.data[1], queue.data[2]);
+	printf("%d %d ", queue.data[1], queue.data[2]); //0,1 출력
 
 	for(int i=0; i<MAX_QUEUE_SIZE; i++)
 	{
-		fib = dequeue(&queue) + queue.data[queue.rear]; 
-		enqueue(&queue, fib);
-		printf("%d ", queue.data[queue.rear]);
+		fib = dequeue(&queue) + queue.data[queue.rear]; //삭제된 노드 값+rear값
+		enqueue(&queue, fib); //fib를 삽입
+		printf("%d ", queue.data[queue.rear]); //큐의 rear값 출력
 	}
 
 	return 0;
@@ -437,18 +437,4 @@ int main(void)
 
 
 12.
-
-A-Steal 스케줄링
-
-* 멀티 프로세서 환경에서 사용.
-
-* 각 프로세서마다 자신이 먼저 처리해야할 작업들이 들어있는 Deque가 존재
-
-* A 프로세서가 자신에게 할당된 작업을 처리하기 위해 Deque의 선두에서 요소를 얻어옴
-
-* 만약 다른 B프로세서가 자신에게 할당된 작업을담아놓은 Deque에 있는 작업을 모두 처리했다면 
-
-  A 프로세서의 Deque에서 작업을 가져옴. 이를 '훔친다'로 표현
-
-  (이때, B프로세서는 A프로세서의 꼬리쪽에서 작업을 가져오므로 Deque를 사용)
 
