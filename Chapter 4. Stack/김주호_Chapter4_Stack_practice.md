@@ -200,3 +200,73 @@ char maze[MAZE_SIZE][MAZE_SIZE] = {
 
 ```
 
+## problem 16
+
+```c
+#include "Header.h"
+#include <stdlib.h>
+
+void eliminate(char* str) // 불필요한 특수문자 제거해주는 함수
+{
+	for (; *str != '\0'; str++)
+	{
+		if (*str == '\'' || *str == ' ' || *str == ',')
+		{
+			strcpy(str, str + 1); // 다음문자를 가져와서 덮어씀
+			str--; // str 가리키는 곳 조정
+		}
+	}
+}
+int main()
+{
+	char letter[30];
+	char temp;
+	printf("문자열을 입력하시오: ");
+	scanf("%[^\n]", letter); // \n 이 나오기 전 모든 문자를 다 입력받음
+
+	strlwr(letter); // 대소문자 변환
+	eliminate(letter); // 구두점 제거
+
+	int len = strlen(letter); 
+	int center = len / 2 + 1;
+
+	StackType s;
+	init_stack(&s);
+
+	if (len % 2 == 1) //  길이가 홀수
+	{
+		for (int a = 0; a < center - 1; a++)
+		{
+			push(&s, letter[a]);
+		}
+		for (int a = center; a < len; a++)
+		{
+			temp = pop(&s); 
+			if (temp != letter[a]) 
+			{
+				printf("회문이 아닙니다.");
+				exit(1);
+			}
+		}
+		printf("회문입니다.");
+	}
+	else // 길이가 짝수
+	{
+		for (int a = 0; a <= center - 1; a++)
+		{
+			push(&s, letter[a]);
+		}
+		for (int a = center; a <= len - 1; a++)
+		{
+			temp = pop(&s); 
+			if (temp != letter[a]) 
+			{
+				printf("회문이 아닙니다.");
+				exit(1); 
+			}
+		}
+		printf("회문입니다.");
+	}
+}
+```
+
