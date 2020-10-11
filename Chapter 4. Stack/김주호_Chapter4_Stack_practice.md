@@ -185,19 +185,138 @@ int main(void){
 
 ```c
 #include<stdio.h>
-#define MAX_SIZE 100
-#define MAZE_SIZE 6
+#include<string.h>
+#include<conio.h>
+#include<stdlib.h>
+#define MAX_STACK_SIZE 100
+#define MAZE_SIZE 8
 
-char maze[MAZE_SIZE][MAZE_SIZE] = {
-	{'1','1','1','1','1','1'},
-	{'e','0','1','0','0','1'},
-	{'1','0','0','0','1','1'},
-	{'1','0','1','0','1','1'},
-	{'1','0','1','0','0','x'},
-	{'1','1','1','1','1','1'},
+typedef struct {
+	short r;
+	short c;
+} element;
+
+typedef struct {
+	element stack[MAX_STACK_SIZE];
+	int top;
+} StackType;
+
+element here = { 1, 0 }, entry = { 1, 0 };
+
+char maze[MAZE_SIZE][MAZE_SIZE] = { // 미로의 형태를 0과 1로 구현
+{ '1', '1', '1', '1', '1', '1', '1', '1'},
+{ 'e', '0', '0', '0', '0', '1', '0', '1'},
+{ '1', '1', '0', '1', '0', '1', '0', '1'},
+{ '1', '1', '1', '1', '0', '1', '0', '1'},
+{ '1', '1', '1', '1', '0', '0', '0', '1'},
+{ '1', '1', '1', '1', '0', '1', '1', '1'},
+{ '1', '1', '1', '1', '0', '0', '0', 'x'},
+{ '1', '1', '1', '1', '1', '1', '1', '1'}
 };
 
+void init(StackType* s) {
+	s->top = -1;
+}
 
+int is_empty(StackType* s) {
+	return (s->top == -1);
+}
+int is_full(StackType* s) {
+	return (s->top == (MAX_STACK_SIZE - 1));
+}
+
+void push(StackType* s, element item) {
+	if (is_full(s)) {
+		fprintf(stderr, "스택 공백 에러\n" );
+		exit(1);
+	}
+	else s->stack[++(s->top)] = item;
+}
+
+element pop(StackType* s) {
+	if (is_empty(s)) {
+		fprintf(stderr, "스택 공백 에러\n");
+		exit(1);
+	}
+	else return s->stack[(s->top)--];
+}
+
+void push_loc(StackType* s, int r, int c) {
+	if (r < 0 || c < 0) {
+		return;
+	}
+	if (maze[r][c] != '1' && maze[r][c] != '.')
+	{
+		element tmp;
+		tmp.r = r; tmp.c = c;
+		push(s, tmp); 
+	}
+}
+
+void maze_print(StackType* s) { // 현재 미로 상태 출력
+	for (int i = 0; i < MAZE_SIZE; i++) {
+		for (int j = 0; j < MAZE_SIZE; j++)
+		{
+			if (maze[i][j] == '1') { // 벽
+				printf("■"); 
+			}	
+			else if (maze[i][j] == '0') { // 통로
+				printf("  ");
+			}
+			else if (maze[i][j] == 'x') { // 종착지 End
+				printf("E");
+			}
+			else // 지나온 길 . 표시
+				printf("★");
+		}
+		printf("\n");
+	}
+}
+void main()
+{
+	int r, c;
+	StackType s, route;
+	init(&s);      
+	init(&route);   // 지나온 location을 route 스택에 기록
+
+	here = entry;
+	while (maze[here.r][here.c] != 'x') { // 종착지에 도달하지 않았다면
+		r = here.r; c = here.c;
+		maze[r][c] = '.';
+		push_loc(&s, r - 1, c); // 아래
+		push_loc(&s, r + 1, c); // 위
+		push_loc(&s, r, c - 1); // 좌
+		push_loc(&s, r, c + 1); // 우
+
+		maze_print(&s);
+
+		if (is_empty(&s)) {
+			// 더 이상 갈 경로가 없으면,
+			printf("실패\n");
+			return;
+		}
+		else
+		{
+			// 다음 갈 경로를 스택에서 pop
+			here = pop(&s);
+			// 경로를 stack에 push
+			push(&route, here);
+
+			printf("\n===== 경로 출력 ====\n");
+			printf("(%d, %d)", entry.r, entry.c);
+			for (int i = 0; i < route.top; i++) {
+				if (i%4 == 3) {
+					printf("\n");
+				}
+				printf("->(%d, %d)", route.stack[i].r, route.stack[i].c); // 경로 출력
+			}
+			printf("\n\n");
+		}
+		system("pause"); // 잠시 정지
+		system("cls");   // clean screen	
+	}
+	printf("성공!!!\n\n" );
+}
 ```
 
 ## problem 16
