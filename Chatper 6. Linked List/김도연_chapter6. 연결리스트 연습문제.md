@@ -377,17 +377,18 @@ int main(void)
 void delete_node(ListNode** head, element x)
 { //head부터 순회하여 특정 데이터를 찾고 그부분을 remove
     ListNode* p=NULL;
-    ListNode* removed= *head; //삭제할 노드를 헤드포인터로
+    ListNode* removed= *head; //삭제할 노드를 헤드에
     while(removed->data!=x) //데이터값이 일치하지 않으면
     {
-        p=removed;
-        removed=removed->link; //다음으로
+        p=removed; //removed가 가리키던걸 p가 가리키게
+        removed=removed->link; //다음으로 한칸씩 이동
     }
-    if(p==NULL){
-        *head=(*head)->link;
+    //데이터값이 x값과 일치하면
+    if(p==NULL){ //헤드가 지울 데이터를 담고있었다면
+        *head=(*head)->link; //헤드의 다음 노드를 새로운 헤드로 만들어 헤드 노드를 지움
     }
-    else
-        p->link=removed->link;
+    else //지울 노드가 헤드노드가 아니면
+        p->link=removed->link; //전노드의 link가 가리키는걸 다음노드(지울 노드의 link로)
     
     free(removed); //삭제할 노드 동적 메모리 반납
     return;
@@ -513,6 +514,22 @@ int main(void)
 
 
 ```c
+void remove_odd_node(ListNode** head) {
+	*head = (*head)->link; ////헤드의 다음 노드를 새로운 헤드로 만들어 헤드 노드를 지움
+	ListNode* p = NULL, 
+    *removed = *head; //삭제할 노드를 head에
+	while (removed->link != NULL) { //removed가 마지막 노드가 아니라면
+		p = removed;
+		removed = removed->link; //한칸씩 이동
+		p->link = removed->link; //전노드의 link가 가리키는걸 다음노드(지울 노드의 link로)해 removed위치에 있는 노드 삭제
+        
+		if (removed->link != NULL) //removed가 마지막 노드가 아니면
+			removed = removed->link; //removed한칸 옮기기
+		else
+			break;
+	}
+	return;
+}
 
 ```
 
