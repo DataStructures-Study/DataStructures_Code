@@ -197,7 +197,7 @@ typedef struct {
 } element;
 
 typedef struct {
-	element stack[MAX_STACK_SIZE];
+	element location[MAX_STACK_SIZE];
 	int top;
 } StackType;
 
@@ -230,7 +230,7 @@ void push(StackType* s, element item) {
 		fprintf(stderr, "스택 공백 에러\n" );
 		exit(1);
 	}
-	else s->stack[++(s->top)] = item;
+	else s->location[++(s->top)] = item;
 }
 
 element pop(StackType* s) {
@@ -238,7 +238,7 @@ element pop(StackType* s) {
 		fprintf(stderr, "스택 공백 에러\n");
 		exit(1);
 	}
-	else return s->stack[(s->top)--];
+	else return s->location[(s->top)--];
 }
 
 void push_loc(StackType* s, int r, int c) {
@@ -308,7 +308,8 @@ void main()
 				if (i%4 == 3) {
 					printf("\n");
 				}
-				printf("->(%d, %d)", route.stack[i].r, route.stack[i].c); // 경로 출력
+				// 경로 출력
+				printf("->(%d, %d)", route.location[i].r, route.location[i].c); 
 			}
 			printf("\n\n");
 		}
@@ -317,6 +318,7 @@ void main()
 	}
 	printf("성공!!!\n\n" );
 }
+
 ```
 
 ## problem 16
