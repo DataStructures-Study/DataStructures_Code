@@ -134,8 +134,6 @@ int main() {
 
 
 
-## 
-
 ## problem 11
 
 ```c
@@ -223,8 +221,6 @@ int main() {
 
 
 
-## 
-
 ## problem 13
 
 ```c
@@ -285,8 +281,6 @@ int main() {
 
 
 
-## 
-
 ## problem 14
 
 ```c
@@ -301,8 +295,6 @@ typedef struct Node {
 ```
 
 
-
-## 
 
 ## problem 15
 
@@ -354,8 +346,6 @@ int main() {
 
 
 
-## 
-
 ## problem 16
 
 ```c
@@ -404,8 +394,6 @@ int main() {
 ```
 
 
-
-## 
 
 ## problem 17
 
@@ -488,7 +476,434 @@ int main() {
 
 
 
-## 
+## problem  18
+
+```python
+#include "LinkedList.h"
+
+Node* merge(Node* A, Node* B) {
+	Node* p = A, * q = B, * merged_list = NULL;
+	while (p != NULL && q != NULL) {
+		if (p->data < q->data) {
+			merged_list = insert_last(merged_list, p->data);
+			p = p->link;
+		}
+		else {
+			merged_list = insert_last(merged_list, q->data);
+			q = q->link;
+		}
+	}
+
+	while (p != NULL) {
+		merged_list = insert_last(merged_list, p->data);
+		p = p->link;
+	}
+	while (q != NULL) {
+		merged_list = insert_last(merged_list, q->data);
+		q = q->link;
+	}
+	return merged_list;
+}
+
+int main(){
+	Node* head1 = NULL;
+	Node* head2 = NULL;
+	Node* result;
+
+	head1 = insert_last(head1, 10);
+	head1 = insert_last(head1, 20);
+	head1 = insert_last(head1, 30);
+	print_list(head1);
+
+	head2 = insert_last(head2, 15);
+	head2 = insert_last(head2, 25);
+	print_list(head2);
+
+	result = merge(head1, head2);
+	printf("결과\n");
+	print_list(result);
+
+	return 0;
+}
+```
+
+
+
+
+
+## problem  19
+
+```python
+#include "LinkedList.h"
+
+void split(Node** A, Node** B, Node* C) {
+	Node* p = C;
+	int flag = 1;
+	while (p != NULL) {
+		if (flag) {
+			*A = insert_last(*A, p->data);
+			p = p->link;
+			flag = 0;
+		}
+		else {
+			*B = insert_last(*B, p->data);
+			p = p->link;
+			flag = 1;
+		}
+	}
+	return;
+}
+
+int main() {
+	Node* C = NULL;
+	Node* A = NULL;
+	Node* B = NULL;
+
+	C = insert_last(C, 1);
+	C = insert_last(C, 2);
+	C = insert_last(C, 3);
+	C = insert_last(C, 4);
+	C = insert_last(C, 5);
+	printf("연결리스트 C\n");
+	print_list(C);
+
+	split(&A, &B, C);
+	printf("\n======A와 B에 split======\n");
+	printf("A : ");
+	print_list(A);
+	printf("B : ");
+	print_list(B);
+
+	return 0;
+}
+```
+
+
+
+
+
+## problem  20
+
+```python
+#include "LinkedList_for_poly.h"
+
+void poly_print(ListType* plist, const char* name){ 
+	ListNode* p = plist->head;
+	printf("%s = ", name);
+	for (; p; p = p->link) {
+		if (p->coef < 0) //계수가 0보다 작은경우 '-' 출력
+			printf("%dx^%d ", p->coef, p->expon);
+		else //그외의 경우 '+' 출력
+			printf("+%dx^%d ", p->coef, p->expon);
+	}
+	printf("\n");
+}
+
+int main(void){
+	ListType* list1, * list2, * list3;
+	// 연결 리스트 헤더 생성
+	list1 = create();
+	list2 = create();
+	list3 = create();
+
+	insert_last(list1, 3, 6); // 첫번째 다항식 입력
+	insert_last(list1, 7, 3);
+	insert_last(list1, -2, 2);
+	insert_last(list1, -9, 0);
+	insert_last(list2, -2, 6); // 두번째 다항식 입력
+	insert_last(list2, -4, 4);
+	insert_last(list2, 6, 2);
+	insert_last(list2, 6, 1);
+	insert_last(list2, 1, 0);
+
+	poly_print(list1, "A(x)"); // 출력
+	poly_print(list2, "B(x)");
+	poly_add(list1, list2, list3); // 입력한 두 다항식을 더하여 list3에 저장
+	poly_print(list3, "A(x) + B(x)"); // 더해진 다항식을 출력.
+
+	free(list1);
+	free(list2);
+	free(list3);
+	// 사용이 끝났으므로 제거하여 메모리 공간을 확보한다.
+}
+```
+
+
+
+
+
+## problem  21
+
+```python
+#include "LinkedList_for_poly.h"
+
+void poly_print(ListType* plist, const char* name) {
+	ListNode* p = plist->head;
+	printf("%s = ", name);
+	for (; p; p = p->link) {
+		if (p->coef < 0) //계수가 0보다 작은경우 '-' 출력
+			printf("%dx^%d ", p->coef, p->expon);
+		else //그외의 경우 '+' 출력
+			printf("+%dx^%d ", p->coef, p->expon);
+	}
+	printf("\n");
+}
+
+int eval_poly(ListType* plist, int x) {
+	int sum = 0;
+	ListNode* term = plist->head;
+	while (term) {
+		int tmp = 1;
+		for (int i = 0; i < term->expon; i++)
+			tmp *= x;
+		sum += tmp * term->coef;
+		term = term->link;
+	}
+	return sum;
+}
+
+int main(void) {
+	ListType* poly ;
+	// 연결 리스트 헤더 생성
+	poly = create();
+
+	insert_last(poly, 1, 3); // 첫번째 다항식 입력
+	insert_last(poly, 2, 1);
+	insert_last(poly, 6, 0);
+
+	poly_print(poly, "A(x)"); // 출력
+	printf("A(2) = %d", eval_poly(poly, 2));
+
+	free(poly);
+	// 사용이 끝났으므로 제거하여 메모리 공간을 확보한다.
+}
+
+
+```
+
+
+
+
+
+## problem  22
+
+```python
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX_LIST_SIZE 100
+
+typedef struct {
+	int arr[MAX_LIST_SIZE];
+	int length;
+}SortedList;
+
+void init(SortedList* L) {
+	L->length = 0;
+}
+int is_empty(SortedList* L) {
+	return L->length == 0;
+}
+int is_full(SortedList* L) {
+	return L->length == MAX_LIST_SIZE;
+}
+
+void add(SortedList* L, int item) {
+	if (is_full(L)) {
+		printf("이미 배열이 가득찼습니다.\n");
+		return;
+	}
+	int i = 0;
+	for (i = 0; i < L->length; i++) {
+		if (item < L->arr[i]) {
+			for (int j = L->length; j > i; j--)
+				L->arr[j] = L->arr[j - 1];
+			break;
+		}
+	}
+	L->arr[i] = item;
+	L->length++;
+}
+
+void delete_item(SortedList* L, int item) {
+	int i;
+	for (i = 0; i < L->length; i++) {
+		if (item == L->arr[i]) {
+			for (int j = i; j < L->length; j++) {
+				L->arr[j] = L->arr[j + 1];
+			}
+		}
+	}
+	L->length--;
+}
+
+void clear(SortedList* L, int item) {
+	L->length = 0;
+}
+
+int is_in_list(SortedList* L, int item) {
+	for (int i = 0; i < L->length; i++)
+		if (L->arr[i] == item)
+			return 1;
+	return 0;
+}
+
+int get_length(SortedList* L) {
+	return L->length;
+}
+
+void display(SortedList* L) {
+	for (int i = 0; i < L->length; i++)
+		printf("%d ", L->arr[i]);
+	printf("\n");
+}
+
+int main() {
+	SortedList* L = (SortedList*)malloc(sizeof(SortedList));
+	init(L);
+
+	add(L, 4);
+	add(L, 2);
+	add(L, 3);
+	add(L, 1);
+
+	display(L);
+
+	return 0;
+}
+```
+
+
+
+
+
+## problem  23
+
+```python
+#include<stdio.h>
+#include<stdlib.h>
+
+
+typedef int element;
+typedef struct ListNode {
+	element data;
+	struct ListNode* link;
+}ListNode;
+
+ListNode* create_node(element item) {
+	ListNode* new_node;
+	new_node = (ListNode*)malloc(sizeof(new_node));
+	new_node->data = item;
+	new_node->link = NULL;
+	return new_node;
+}
+
+void add_element(ListNode** head, element item) {
+	ListNode* tmp = create_node(item);
+	if (*head == NULL) {
+		*head = tmp;
+	}
+	else {
+		ListNode* pre = NULL;
+		ListNode* ptr = *head;
+		while (ptr != NULL) {
+			if (item < ptr->data) {
+				if (ptr == *head) {
+					*head = tmp;
+					tmp->link = ptr;
+				}
+				else {
+					pre->link = tmp;
+					tmp->link = ptr;
+				}
+				break;
+			}
+			pre = ptr;
+			ptr = ptr->link;
+		}
+	}
+}
+
+void delete_element(ListNode** head, element item) {
+	ListNode* pre = NULL, * removed = *head;
+	while (removed->data != item) {
+		pre = removed;
+		removed = removed->link;
+		if (removed == NULL) {
+			printf("삭제를 원하는 원소가 리스트 안에 없습니다.\n");
+			return;
+		}
+	}
+	if (pre == NULL)
+		*head = (*head)->link;
+	else
+		pre->link = removed->link;
+	return;
+}
+
+void clear(ListNode** head) {
+	(*head)->link = NULL;
+}
+
+int is_in_list(ListNode* head, element item) {
+	ListNode* p = head;
+	while (p != NULL) {
+		if (p->data == item)
+			return 1;
+		p = p->link;
+	}
+	return 0;
+}
+
+int get_length(ListNode* head) {
+	int count = 0;
+	ListNode* p = head;
+	while (p != NULL) {
+		count++;
+		p = p->link;
+	}
+	return count;
+}
+
+int is_empty(ListNode* head) {
+	return head->link == NULL;
+}
+
+int is_full(ListNode* head) {
+	// 노드가 더이상 만들어지지 않는다면 메모리가 가득찬상태.
+	ListNode* N = create_node(0);
+	if (N == NULL)
+		return 1;
+	return 0;
+}
+
+void display(ListNode* head) {
+	ListNode* p = head;
+	while (p != NULL) {
+		printf("%d ", p->data);
+		p = p->link;
+	}
+	printf("\n");
+}
+
+int main() {
+	ListNode* L = NULL;
+
+	printf("4 삽입\n"); add_element(&L, 4);
+	printf("2 삽입\n"); add_element(&L, 2);
+	printf("3 삽입\n"); add_element(&L, 3);
+	printf("1 삽입\n"); add_element(&L, 1);
+
+	printf("\n=====연결리스트에 담긴 형태=====\n");
+	display(L); printf("\n");
+
+	printf("4 삭제\n"); delete_element(&L, 4);
+	display(L); printf("\n");
+	printf("5 삭제\n"); delete_element(&L, 5);
+	display(L);
+
+	return 0;
+}
+```
 
 
 
