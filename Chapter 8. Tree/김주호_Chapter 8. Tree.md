@@ -93,9 +93,7 @@
 
 11.
 
-![img_problem11](./img_problem11.jpg)
-
-(4)
+(4)![img_problem11](./img_problem11.jpg)
 
 11-6-8
 
