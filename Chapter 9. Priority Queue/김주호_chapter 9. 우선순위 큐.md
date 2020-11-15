@@ -54,7 +54,7 @@
 
 (1)
 
-![image-20201115090622106](C:\Users\juho3\AppData\Roaming\Typora\typora-user-images\image-20201115090622106.png)
+![image-20201115090622106](./image-20201115090622106.png)
 
 (2)
 
