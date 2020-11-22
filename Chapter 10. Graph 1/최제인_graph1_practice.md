@@ -6,7 +6,7 @@
 
 ##### 2
 
-<img src="..\KakaoTalk_20201120_155851788.jpg" alt="KakaoTalk_20201120_155851788" style="zoom: 25%;" />
+![KakaoTalk_20201120_155853179]( ./cjimg/KakaoTalk_20201120_155853179.jpg)
 
 
 
