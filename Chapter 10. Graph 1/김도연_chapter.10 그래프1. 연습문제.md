@@ -134,7 +134,7 @@
 
 8)
 
-![image-20201121215530130](C:\Users\rlaeh\AppData\Roaming\Typora\typora-user-images\image-20201121215530130.png)
+![image-20201121215530130](.\..\..\image-20201121215530130.png)
 
 9) 인접 배열
 
@@ -248,7 +248,7 @@ int calculate_num_edges(GraphType *g)
 
 11)
 
-![image-20201121230705508](C:\Users\rlaeh\AppData\Roaming\Typora\typora-user-images\image-20201121230705508.png)
+![image-20201121230705508](.\..\..\image-20201121230705508.png)
 
 
 
