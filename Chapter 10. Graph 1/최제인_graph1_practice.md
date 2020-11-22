@@ -6,7 +6,7 @@
 
 ##### 2
 
-<img src="C:\Users\Janie\Documents\카카오톡 받은 파일\KakaoTalk_20201120_155851788.jpg" alt="KakaoTalk_20201120_155851788" style="zoom: 25%;" />
+<img src="..\KakaoTalk_20201120_155851788.jpg" alt="KakaoTalk_20201120_155851788" style="zoom: 25%;" />
 
 
 
@@ -30,23 +30,23 @@
 
 ##### 6
 
-![KakaoTalk_20201120_155853179](C:\Users\Janie\Documents\카카오톡 받은 파일\KakaoTalk_20201120_155853179.jpg)
+![KakaoTalk_20201120_155853179]( ..\KakaoTalk_20201120_155853179.jpg)
 
 ##### 7
 
-![KakaoTalk_20201120_155854611](C:\Users\Janie\Documents\카카오톡 받은 파일\KakaoTalk_20201120_155854611.jpg)
+![KakaoTalk_20201120_155854611](..\KakaoTalk_20201120_155854611.jpg)
 
-![KakaoTalk_20201120_155855975](C:\Users\Janie\Documents\카카오톡 받은 파일\KakaoTalk_20201120_155855975.jpg)
+![KakaoTalk_20201120_155855975](..\KakaoTalk_20201120_155855975.jpg)
 
 
 
 ##### 8
 
-![KakaoTalk_20201120_155857162](C:\Users\Janie\Documents\카카오톡 받은 파일\KakaoTalk_20201120_155857162.jpg)
+![KakaoTalk_20201120_155857162](..\KakaoTalk_20201120_155857162.jpg)
 
 ##### 9, 10, 11
 
-![KakaoTalk_20201120_155858329](C:\Users\Janie\Documents\카카오톡 받은 파일\KakaoTalk_20201120_155858329.jpg)
+![KakaoTalk_20201120_155858329](..\KakaoTalk_20201120_155858329.jpg)
 
 
 
@@ -71,7 +71,7 @@
 
 (3,4)
 
-![KakaoTalk_20201120_161350434](C:\Users\Janie\Desktop\KakaoTalk_20201120_161350434.jpg)
+![KakaoTalk_20201120_161350434](..\KakaoTalk_20201120_161350434.jpg)
 
 ##### 14
 
