@@ -6,7 +6,7 @@
 
 ##### 2
 
-<img src="./cjiimg/KakaoTalk_20201120_155851788.jpg" alt="KakaoTalk_20201120_155851788" style="zoom: 25%;" />
+<img src="./cjimg/KakaoTalk_20201120_155851788.jpg" alt="KakaoTalk_20201120_155851788" style="zoom: 25%;">
 
 
 
@@ -30,23 +30,23 @@
 
 ##### 6
 
-![KakaoTalk_20201120_155853179]( ./cjiimg/KakaoTalk_20201120_155853179.jpg)
+![KakaoTalk_20201120_155853179]( ./cjimg/KakaoTalk_20201120_155853179.jpg)
 
 ##### 7
 
-![KakaoTalk_20201120_155854611](./cjiimg/KakaoTalk_20201120_155854611.jpg)
+![KakaoTalk_20201120_155854611](./cjimg/KakaoTalk_20201120_155854611.jpg)
 
-![KakaoTalk_20201120_155855975](./cjiimg/KakaoTalk_20201120_155855975.jpg)
+![KakaoTalk_20201120_155855975](./cjimg/KakaoTalk_20201120_155855975.jpg)
 
 
 
 ##### 8
 
-![KakaoTalk_20201120_155857162](./cjiimg/KakaoTalk_20201120_155857162.jpg)
+![KakaoTalk_20201120_155857162](./cjimg/KakaoTalk_20201120_155857162.jpg)
 
 ##### 9, 10, 11
 
-![KakaoTalk_20201120_155858329](./cjiimg/KakaoTalk_20201120_155858329.jpg)
+![KakaoTalk_20201120_155858329](./cjimg/KakaoTalk_20201120_155858329.jpg)
 
 
 
@@ -71,7 +71,7 @@
 
 (3,4)
 
-![KakaoTalk_20201120_161350434](./cjiimg/KakaoTalk_20201120_161350434.jpg)
+![KakaoTalk_20201120_161350434](./cjimg/KakaoTalk_20201120_161350434.jpg)
 
 ##### 14
 
