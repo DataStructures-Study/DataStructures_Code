@@ -253,7 +253,7 @@ void shortest_path(GraphType* g, int start)
 	for (i = 0; i < g->n; i++)
 	{
 		distance[i] = g->weight[start][i];
-		before[i] = start; // 시작정점을 전역변수 path에 저장.
+		before[i] = start; // 시작정점을 전역변수 before에 저장.
 		found[i] = false;
 	}
 	found[start] = true;
