@@ -10,7 +10,7 @@
 
 2>
 
-AD->CE->DF->AB->BC->EG
+AD->CE->DF->AB->BE->EG
 
 
 
