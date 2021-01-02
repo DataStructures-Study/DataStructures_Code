@@ -175,7 +175,7 @@ int main(void)
 
 ##### 12
 
-![12번](/cjimg/12번.jpg)
+![12번](cjimg/12번.jpg)
 
 ##### 13
 
