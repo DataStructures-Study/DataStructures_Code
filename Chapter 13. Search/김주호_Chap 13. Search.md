@@ -30,6 +30,18 @@
 
 05.
 
+(1)
+
+![image-20210131102228995](C:\Users\juho3\AppData\Roaming\Typora\typora-user-images\image-20210131102228995.png)
+
+(2)
+
+![image-20210131103106932](C:\Users\juho3\AppData\Roaming\Typora\typora-user-images\image-20210131103106932.png)
+
+(3)
+
+
+
 
 
 06.
